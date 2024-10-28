@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<views:ContentPageBaseView
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:TestApp.Views"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:controls="clr-namespace:TestApp.Controls"
+    x:Name="profileView"
+    Title="Profile"
+    x:Class="TestApp.Views.ProfileView">
+    <views:ContentPageBaseView.BindingContext>
+        <Binding
+            Source="{x:Reference profileView}"
+            Path="ProfileVM" />
+    </views:ContentPageBaseView.BindingContext>
+    <views:ContentPageBaseView.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Appearing" Command="{Binding OnAppearingCommand}" />
+    </views:ContentPageBaseView.Behaviors>
+
+    <VerticalStackLayout Padding="20" Spacing="10" VerticalOptions="FillAndExpand">
+        <Image HorizontalOptions="End" Source="edit_icon.png" HeightRequest="20" WidthRequest="20">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding ChangeEditModelCommand}"></TapGestureRecognizer>
+            </Image.GestureRecognizers>
+        </Image>
+        <VerticalStackLayout IsEnabled="{Binding IsEditMode}" Spacing="15">
+            <controls:BorderEntry Text="{Binding UserData.NickName}" Placeholder="NickName" />
+            <controls:BorderEntry Text="{Binding UserData.Email}" Placeholder="NickName" />
+            <controls:BorderEntry Text="{Binding UserData.PhoneNumber}" Placeholder="Phone Number" />
+            <Button Text="Save" Command="{Binding SaveUserDataCommand}" HorizontalOptions="FillAndExpand"
+                    VerticalOptions="Start" />
+        </VerticalStackLayout>
+        <Button Margin="0,20" HorizontalOptions="FillAndExpand" VerticalOptions="End" Text="Logout"
+                Command="{Binding LogoutCommand}" />
+    </VerticalStackLayout>
+
+</views:ContentPageBaseView>

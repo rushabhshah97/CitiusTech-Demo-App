@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<views:ContentPageBaseView
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:TestApp.Views"
+    x:Name="detailView"
+    x:Class="TestApp.Views.DetailView">
+    <views:ContentPageBaseView.BindingContext>
+        <Binding
+            Source="{x:Reference detailView}"
+            Path="DetailVM" />
+    </views:ContentPageBaseView.BindingContext>
+    <views:ContentPageBaseView.Content>
+        <StackLayout Margin="15">
+            <Image Source="backarrow_icon.png" HeightRequest="20" WidthRequest="20" HorizontalOptions="StartAndExpand"
+                   VerticalOptions="Center">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GoToBackCommand}"></TapGestureRecognizer>
+                </Image.GestureRecognizers>
+            </Image>
+            <WebView
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand">
+                <WebView.Source>
+                    <UrlWebViewSource Url="{Binding HomeVM.SelectedBookData.BookUrl}" />
+                </WebView.Source>
+            </WebView>
+        </StackLayout>
+    </views:ContentPageBaseView.Content>
+</views:ContentPageBaseView>

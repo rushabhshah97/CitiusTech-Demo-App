@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<views:ContentPageBaseView
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:TestApp.Views"
+    xmlns:models="clr-namespace:TestApp.Models"
+    xmlns:viewModels="clr-namespace:TestApp.ViewModels"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    x:Name="homeView"
+    x:Class="TestApp.Views.HomeView">
+    <views:ContentPageBaseView.BindingContext>
+        <Binding
+            Source="{x:Reference homeView}"
+            Path="HomeVM" />
+    </views:ContentPageBaseView.BindingContext>
+
+    <views:ContentPageBaseView.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Appearing" Command="{Binding OnAppearingCommand}" />
+    </views:ContentPageBaseView.Behaviors>
+
+    <views:ContentPageBaseView.BasePageContent>
+        <StackLayout Margin="15" Spacing="20" HorizontalOptions="FillAndExpand">
+            <HorizontalStackLayout Spacing="10" HorizontalOptions="FillAndExpand">
+                <Label
+                    HorizontalOptions="FillAndExpand"
+                    FontSize="20"
+                    FontAttributes="Bold"
+                    Text="{Binding UserData.NickName, StringFormat='Welcome {0}'}" />
+
+                <Image HorizontalOptions="EndAndExpand" VerticalOptions="Center" Source="logout_icon.png"
+                       HeightRequest="20" WidthRequest="20" Grid.RowSpan="3">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer
+                            NumberOfTapsRequired="1"
+                            Command="{Binding LogoutCommand}">
+                        </TapGestureRecognizer>
+                    </Image.GestureRecognizers>
+                </Image>
+            </HorizontalStackLayout>
+
+            <CollectionView ItemsSource="{Binding BooksData}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout ItemSpacing="5" Orientation="Vertical"></LinearItemsLayout>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:BookData">
+                        <Grid Padding="5" RowDefinitions="Auto,Auto,Auto">
+                            <Label Grid.Row="0" Text="{Binding BookName}" HorizontalOptions="FillAndExpand" />
+                            <Label Grid.Row="1" Text="{Binding SubTitle}" HorizontalOptions="FillAndExpand" />
+                            <BoxView Grid.Row="2" Margin="0,10" Color="Black" HeightRequest="1"
+                                     HorizontalOptions="FillAndExpand" />
+
+                            <Image HorizontalOptions="End" VerticalOptions="Center" Source="rightarrow_icon.png"
+                                   HeightRequest="20" WidthRequest="20" Grid.RowSpan="3">
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        NumberOfTapsRequired="1"
+                                        Command="{Binding Source={x:Reference homeView},Path=HomeVM.NavigateToDetailPageCommand}"
+                                        CommandParameter="{Binding .}">
+                                    </TapGestureRecognizer>
+                                </Image.GestureRecognizers>
+                            </Image>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </views:ContentPageBaseView.BasePageContent>
+</views:ContentPageBaseView>

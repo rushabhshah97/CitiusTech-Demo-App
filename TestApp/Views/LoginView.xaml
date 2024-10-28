@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<views:ContentPageBaseView
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:TestApp.Views"
+    xmlns:viewModels="clr-namespace:TestApp.ViewModels"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:controls="clr-namespace:TestApp.Controls"
+    x:Name="loginview"
+    x:DataType="viewModels:LoginViewModel"
+    x:Class="TestApp.Views.LoginView">
+    <views:ContentPageBaseView.BindingContext>
+        <Binding
+            Source="{x:Reference loginview}"
+            Path="LoginVM" />
+    </views:ContentPageBaseView.BindingContext>
+
+    <views:ContentPageBaseView.BasePageContent>
+        <StackLayout
+            Margin="10"
+            HorizontalOptions="FillAndExpand"
+            Spacing="10"
+            VerticalOptions="FillAndExpand">
+            <controls:BorderEntry Placeholder="Enter your nick name" Text="{Binding NickName}" />
+            <controls:BorderEntry Placeholder="Enter your email" Keyboard="Email" Text="{Binding Email}" />
+            <controls:BorderEntry Placeholder="Enter your password" IsPassword="True" Text="{Binding Password}" />
+
+            <Button Text="Login" HorizontalOptions="FillAndExpand" Command="{Binding LoginAsyncCommand}" />
+        </StackLayout>
+    </views:ContentPageBaseView.BasePageContent>
+</views:ContentPageBaseView>
