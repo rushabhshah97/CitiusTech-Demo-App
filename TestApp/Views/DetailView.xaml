@@ -12,20 +12,27 @@
             Path="DetailVM" />
     </views:ContentPageBaseView.BindingContext>
     <views:ContentPageBaseView.Content>
-        <StackLayout Margin="15">
-            <Image Source="backarrow_icon.png" HeightRequest="20" WidthRequest="20" HorizontalOptions="StartAndExpand"
-                   VerticalOptions="Center">
-                <Image.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding GoToBackCommand}"></TapGestureRecognizer>
-                </Image.GestureRecognizers>
-            </Image>
-            <WebView
-                HorizontalOptions="FillAndExpand"
-                VerticalOptions="FillAndExpand">
-                <WebView.Source>
-                    <UrlWebViewSource Url="{Binding HomeVM.SelectedBookData.BookUrl}" />
-                </WebView.Source>
-            </WebView>
-        </StackLayout>
+        <Grid>
+            <ActivityIndicator Color="Black" IsRunning="{Binding IsBusy}" HorizontalOptions="Center" VerticalOptions="Center" />
+
+            <StackLayout Margin="15">
+                <Image Source="backarrow_icon.png" HeightRequest="20" WidthRequest="20"
+                       HorizontalOptions="StartAndExpand"
+                       VerticalOptions="Center">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoToBackCommand}"></TapGestureRecognizer>
+                    </Image.GestureRecognizers>
+                </Image>
+                <WebView
+                    Navigated="WebView_OnNavigated"
+                    Navigating="WebView_OnNavigating"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand">
+                    <WebView.Source>
+                        <UrlWebViewSource Url="{Binding HomeVM.SelectedBookData.BookUrl}" />
+                    </WebView.Source>
+                </WebView>
+            </StackLayout>
+        </Grid>
     </views:ContentPageBaseView.Content>
 </views:ContentPageBaseView>

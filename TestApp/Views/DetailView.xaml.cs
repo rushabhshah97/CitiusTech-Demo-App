@@ -23,4 +23,14 @@ public partial class DetailView : ContentPageBaseView
             Console.WriteLine(e);
         }
     }
+
+    private void WebView_OnNavigating(object? sender, WebNavigatingEventArgs e)
+    {
+        DetailVM.IsBusy = true;
+    }
+
+    private void WebView_OnNavigated(object? sender, WebNavigatedEventArgs e)
+    {
+        DetailVM.IsBusy = false;
+    }
 }
